@@ -1,0 +1,107 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Auth Service API",
+    "description": "Responsible for user signup, login, delete account."
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "signupSchema": {
+        "type": "object",
+        "required": [
+          "firstname",
+          "lastname",
+          "username",
+          "password"
+        ],
+        "properties": {
+          "firstname": {
+            "type": "string"
+          },
+          "lastname": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "loginSchema": {
+        "type": "object",
+        "required": [
+          "username",
+          "password"
+        ],
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/signup": {
+      "post": {
+        "description": "Create New User",
+        "requestBody": {
+          "required": true,
+          "description": "User Account Details",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/signupSchema"
+              }
+            }
+          }
+        },
+        "tags": [
+          "Endpoints"
+        ],
+        "responses": {
+          "200": {
+            "description": "signed up successfully"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "description": "Authenticate the user, and return an long life access token",
+        "requestBody": {
+          "required": true,
+          "description": "Username And Password",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/loginSchema"
+              }
+            }
+          }
+        },
+        "tags": [
+          "Endpoints"
+        ],
+        "responses": {
+          "200": {
+            "description": "logged in successfully"
+          }
+        }
+      }
+    }
+  }
+}
