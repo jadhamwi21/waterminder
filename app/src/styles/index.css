@@ -1,0 +1,21 @@
+:root {
+	--white: #ffffff;
+	--blue: #57a4ff;
+	--black: #1a1a1a;
+}
+
+body {
+	margin: 0px;
+	padding: 0px;
+	font-family: "Roboto", sans-serif !important;
+	overflow-x: hidden;
+	background-color: var(--white) !important;
+	height: fit-content;
+	min-height: 100vh;
+	width: 100%;
+}
+
+* {
+	transition: color 0.75s ease !important;
+	transition: background-color 0.75s ease !important;
+}

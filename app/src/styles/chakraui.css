@@ -1,0 +1,5 @@
+.css-10ex9a1:focus-visible,
+.css-10ex9a1[data-focus-visible] {
+	border-color: var(--blue) !important;
+	box-shadow: 0 0 0 1px var(--blue) !important;
+}

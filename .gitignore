@@ -1,5 +1,8 @@
 
-./plan
+/plan
 *.exe
 *.log
 *.env
+*.webpack
+/app/node_modules
+

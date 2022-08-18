@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wm-record-dep
+  labels:
+    app: wm-record
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wm-record
+  template:
+    metadata:
+      labels:
+        app: wm-record
+    spec:
+      containers:
+        - name: wm-record-container
+          image: jadhamwi21/waterminder:record
+          imagePullPolicy: Always
+          env:
+            - name: RECORD_DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: wm-record-configmap
+                  key: record-db-url
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: wm-jwt-secrets
+                  key: private-key
+          ports:
+            - containerPort: 8002
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wm-record-svc
+spec:
+  selector:
+    app: wm-record
+  ports:
+    - port: 8002
+      targetPort: 8002

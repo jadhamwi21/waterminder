@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wm-auth-dep
+  labels:
+    app: wm-auth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wm-auth
+  template:
+    metadata:
+      labels:
+        app: wm-auth
+    spec:
+      containers:
+        - name: wm-auth-container
+          image: jadhamwi21/waterminder:auth
+          imagePullPolicy: Always
+          env:
+            - name: AUTH_DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: wm-auth-configmap
+                  key: auth-db-url
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: wm-jwt-secrets
+                  key: private-key
+          ports:
+            - containerPort: 8001
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wm-auth-svc
+spec:
+  selector:
+    app: wm-auth
+  ports:
+    - port: 8001
+      targetPort: 8001

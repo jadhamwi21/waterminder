@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wm-gateway-dep
+  labels:
+    app: wm-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wm-gateway
+  template:
+    metadata:
+      labels:
+        app: wm-gateway
+    spec:
+      containers:
+        - name: wm-gateway-container
+          image: jadhamwi21/waterminder:gateway
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wm-gateway-svc
+spec:
+  type: NodePort
+  selector:
+    app: wm-gateway
+  ports:
+    - port: 8000
+      targetPort: 8000

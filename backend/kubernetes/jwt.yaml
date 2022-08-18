@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: wm-jwt-secrets
+type: Opaque
+data:
+  private-key: 2f1189ef6fc217d3cbb9d86154c154ee73210484bfb016086de9daa0957ebe776fdc50fdebe81020
